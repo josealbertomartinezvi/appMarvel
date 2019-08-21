@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center" style="margin-top:5px;">
+            <div class="card-body">
+                <img src="{{comicData.comic.img}}" *ngIf="comicData.comic" width="300" height="500"/>
+            </div>
+            <div class="card-footer">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top:10px;">
+                        <button type="submit" class="btn btn-primary btn-block" (click)="deleteComic()">
+                            DELETE FROM MY COMICS
+                        </button>
+                    </div>           
+                </div>
+            </div>        
+        </div>            
+    </div>  
+    <div class="col-md-8">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center" style="margin-top:5px;">
+                    <div class="card-header bg-dar text-while d-flex justify-content-bettwen align-items-center" *ngIf="comicData.comic">
+                        <h2>{{comicData.comic.title}}</h2>
+                    </div>
+                    <div class="card-body" *ngIf="comicData.comic">
+                        <p style="text-align: justify;">{{comicData.comic.description}}</p>
+                    </div>   
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card text-center" style="margin-top:5px;">
+                    <div class="card-header bg-dar text-while d-flex justify-content-bettwen align-items-center" *ngIf="comicData.comic">
+                        <h2>Characters</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4" *ngFor = "let character of comicData.characters">
+                                <div class="card text-center" style="margin-top:20px;">
+                                    <div class="card-header bg-dar text-while d-flex justify-content-bettwen align-items-center">
+                                        <h6>{{character.name}}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <img src="{{character.img}}" onerror="this.src='../../../../../../../assets/image_not_available.jpg'" alt="" width="150" height="200"/>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>        
+  </div>
+  
+  
+  
+  
+  

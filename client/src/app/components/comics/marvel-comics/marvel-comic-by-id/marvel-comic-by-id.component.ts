@@ -1,0 +1,60 @@
+import { Component, OnInit } from '@angular/core';
+
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { MarvelComicsService } from '../../../../services/comics/marvelComics/marvel-comics.service';
+
+import { AppComponent } from '../../../../app.component'
+
+@Component({
+  selector: 'app-marvel-comic-by-id',
+  templateUrl: './marvel-comic-by-id.component.html',
+  styleUrls: ['./marvel-comic-by-id.component.css']
+})
+export class MarvelComicByIdComponent implements OnInit {
+
+  private comicData: any = []
+
+  constructor(private marvelComicsService: MarvelComicsService, private router: Router, private activatedRoute: ActivatedRoute, private appComponent: AppComponent) { }
+
+  ngOnInit() {
+
+    let comicId = this.activatedRoute.snapshot.params.id
+    this.getComicById(comicId)
+   
+  }
+
+  getComicById(comicId){
+    this.marvelComicsService.getComicById(comicId)
+    .subscribe(
+      res => {
+        this.appComponent.changeNavigation(true)
+        this.comicData = res
+      },
+      err => {
+        if(err.status == '403'){
+          this.appComponent.changeNavigation(false)
+        }
+        if(err.status == '401'){
+          this.appComponent.changeNavigation(false)
+        }
+        this.router.navigate(['/'])
+      }
+    )
+  }  
+
+  addComic(){
+    this.marvelComicsService.addToMyComics(this.comicData)
+    .subscribe(
+      res =>{
+        //console.log(res)
+        this.router.navigate(['/myComics'])
+      },
+      err =>{
+
+      }
+    )
+  }
+
+
+}

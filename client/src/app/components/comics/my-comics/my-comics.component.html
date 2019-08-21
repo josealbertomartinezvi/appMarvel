@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-md-4" *ngFor = "let data of data">
+       <div class="card text-center" style="margin-top:20px;">
+        <div class="card-header bg-dar text-while d-flex justify-content-bettwen align-items-center">
+            {{data.comic.title}}
+            <hr>
+        </div>
+        <div class="card-body">
+            <img [src]="data.comic.img" alt="" width="300" height="300"/>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+              <div class="col-md-6" style="margin-top:10px;">
+                <a [routerLink]="['/myComics', data._id]" class="btn btn-info btn-block">
+                  SHOW
+                </a>
+              </div>           
+          </div>
+        </div> 
+      </div>
+    </div>     
+  </div>
+  
+  
+  
+  
+  
