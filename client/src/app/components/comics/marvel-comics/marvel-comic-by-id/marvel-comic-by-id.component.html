@@ -6,7 +6,7 @@
                 </div>
                 <div class="card-footer">
                     <div class="row">
-                        <div class="col-md-12" style="margin-top:10px;">
+                        <div class="col-md-12" style="margin-top:10px;" *ngIf="!comicData.isOnMyList">
                             <button type="submit" class="btn btn-primary btn-block" (click)="addComic()">
                                 ADD MY COMICS
                             </button>
@@ -54,7 +54,7 @@
         </div>        
       </div>
       
-      
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>      
       
       
       

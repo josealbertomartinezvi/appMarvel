@@ -14,6 +14,7 @@ import { SignUpService } from '../../../services/auth/signUp/sign-up.service';
 })
 export class SignUpComponent implements OnInit {
 
+  public loading = false;
   sign_Up: SignUp = {
     id: null,
     name: '',
@@ -25,6 +26,7 @@ export class SignUpComponent implements OnInit {
   constructor(private signUpService: SignUpService, private router: Router) { }
 
   ngOnInit() {
+    this.loading = true;
   }
 
   signUp(){
@@ -33,11 +35,14 @@ export class SignUpComponent implements OnInit {
     this.signUpService.signUp(this.sign_Up)
       .subscribe(
         res => {
+          this.loading = false;
           alert(`!Welcome ${res}!`);
           this.router.navigate(['/signIn']);
-          //console.log(res)
         },
-        err => console.log(err)
+        err => {
+          this.loading = false;
+          alert(err.error.message)
+        }
       );    
 
      

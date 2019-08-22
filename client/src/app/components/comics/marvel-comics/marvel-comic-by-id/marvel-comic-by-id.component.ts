@@ -13,12 +13,14 @@ import { AppComponent } from '../../../../app.component'
 })
 export class MarvelComicByIdComponent implements OnInit {
 
+  public loading = false;
+
   private comicData: any = []
 
   constructor(private marvelComicsService: MarvelComicsService, private router: Router, private activatedRoute: ActivatedRoute, private appComponent: AppComponent) { }
 
   ngOnInit() {
-
+    this.loading = true;
     let comicId = this.activatedRoute.snapshot.params.id
     this.getComicById(comicId)
    
@@ -28,16 +30,14 @@ export class MarvelComicByIdComponent implements OnInit {
     this.marvelComicsService.getComicById(comicId)
     .subscribe(
       res => {
+        this.loading = false;
         this.appComponent.changeNavigation(true)
         this.comicData = res
       },
       err => {
-        if(err.status == '403'){
-          this.appComponent.changeNavigation(false)
-        }
-        if(err.status == '401'){
-          this.appComponent.changeNavigation(false)
-        }
+        this.loading = false;
+        alert(err.error.message)
+        this.appComponent.changeNavigation(false)
         this.router.navigate(['/'])
       }
     )
@@ -47,11 +47,13 @@ export class MarvelComicByIdComponent implements OnInit {
     this.marvelComicsService.addToMyComics(this.comicData)
     .subscribe(
       res =>{
-        //console.log(res)
+        this.loading = false;
         this.router.navigate(['/myComics'])
       },
       err =>{
-
+        this.loading = false;
+        alert(err.error.message)
+        this.router.navigate(['/'])
       }
     )
   }

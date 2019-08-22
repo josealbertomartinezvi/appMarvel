@@ -12,6 +12,8 @@ import { SignInService } from '../../../services/auth/signIn/sign-in.service';
 })
 export class SignInComponent implements OnInit {
 
+  public loading = false;
+
   sign_In: SignIn = {
     email: '',
     password: ''
@@ -20,19 +22,20 @@ export class SignInComponent implements OnInit {
   constructor(private signInService: SignInService, private router: Router) { }
 
   ngOnInit() {
+    this.loading = true;
   }
 
   signIn(){
     this.signInService.signIn(this.sign_In)
       .subscribe(
         res => {
-          if(res){
-            this.router.navigate(['/comics']);
-          }else{
-            alert('user doesnt exist')
-          }
+          this.loading = false;
+          this.router.navigate(['/comics'])
         },
-        err => console.log(err)
+        err => {
+          this.loading = false;
+          alert(err.error.message)
+        }
       );    
 
      

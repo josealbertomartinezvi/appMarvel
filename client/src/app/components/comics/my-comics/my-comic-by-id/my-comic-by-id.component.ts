@@ -13,12 +13,14 @@ import { AppComponent } from '../../../../app.component'
 })
 export class MyComicByIdComponent implements OnInit {
 
+  public loading = false;
+
   private comicData: any = []
 
   constructor(private myComicsService: MyComicsService, private router: Router, private activatedRoute: ActivatedRoute, private appComponent: AppComponent) { }
 
   ngOnInit() {
-
+    this.loading = true;
     let comicId = this.activatedRoute.snapshot.params.id
     this.getMyComicById(comicId)
 
@@ -28,20 +30,35 @@ export class MyComicByIdComponent implements OnInit {
     this.myComicsService.getMyComicById(comicId)
     .subscribe(
       res => {
+        this.loading = false;
         this.appComponent.changeNavigation(true)
         this.comicData = res
       },
       err => {
-        if(err.status == '403'){
-          this.appComponent.changeNavigation(false)
-        }
-        if(err.status == '401'){
-          this.appComponent.changeNavigation(false)
-        }
+        this.loading = false;
+        alert(err.error.message)
+        this.appComponent.changeNavigation(false)
         this.router.navigate(['/'])
       }
     )
   }  
+
+  deleteComic(){
+    let option: boolean = confirm('Are you sure you want to delete this comic?') 
+    if(option){
+      this.myComicsService.deleteComic(this.comicData._id)
+      .subscribe(
+        res => {
+          this.loading = false;
+          console.log(res)
+          this.router.navigate(['/myComics'])
+        },
+        err => {
+          this.loading = false;
+        }
+      )  
+    }
+  }
 
 
 }

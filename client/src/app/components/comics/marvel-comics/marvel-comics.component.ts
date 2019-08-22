@@ -13,31 +13,29 @@ import { AppComponent } from '../../../app.component'
 })
 export class MarvelComicsComponent implements OnInit {
 
+  public loading = false;
+
   data: any = []
 
   constructor(private marvelComicsService: MarvelComicsService, private router: Router, private appComponent: AppComponent) { }
 
   ngOnInit() {
+    this.loading = true;
     this.getComics();
   }
 
   getComics(){
     this.marvelComicsService.getComics().subscribe(
       res =>{
+        this.loading = false;
         this.appComponent.changeNavigation(true)
         this.data = res
       },
       err => {
-        if(err.status == '403'){
-        //  this.appComponent.changeNavigation(false)
-        }
-        
-        if(err.status == '401'){
-          
-        }
-        this.router.navigate(['/'])
+        this.loading = false;
+        alert(err.error.message)
         this.appComponent.changeNavigation(false)
-        
+        this.router.navigate(['/'])
       }
     )
   }

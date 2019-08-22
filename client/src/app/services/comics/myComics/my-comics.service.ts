@@ -19,7 +19,7 @@ export class MyComicsService {
     return this.http.get(`${this.API_URI}/myComics/${comicId}`, {headers: this.getTokenService.getToken()});
   }
 
-  // addToMyComics(comicData){
-  //   return this.http.post(`${this.API_URI}/myComics`, comicData, {headers: this.getTokenService.getToken()});
-  // }
+  deleteComic(comicId){
+    return this.http.delete(`${this.API_URI}/myComics/${comicId}`, {headers: this.getTokenService.getToken()});
+  }
 }

@@ -34,7 +34,7 @@ class MyComicsController{
                     if(err){
                         res.status(500).json('Server Error')
                     }else if(!comic){
-                        res.status(409).json('Something is wrong')
+                        res.status(409).json({message: 'Something is wrong'})
                     }else{
                         res.status(200).json(comic)
                     }
@@ -46,7 +46,7 @@ class MyComicsController{
     async addToMyComics(req, res) {
         await jwt.verify(req.token, CONFIG_JWT.TOKEN_SECRET, (err, authData) =>{
             if(err){
-                res.sendStatus(403)
+                res.status(403).json({message: 'Access Denied'})
             }else{ 
                 const newComic = {
                     userId: authData.user._id,
@@ -55,9 +55,9 @@ class MyComicsController{
                 }
                 Comic.create(newComic, (err, comic) => {
                     if(err){
-                        res.status(500).json('Server Error')
+                        res.status(500).json({message: 'Server Error'})
                     }else{
-                      res.status(200).json('Comic Added')  
+                      res.status(200).json({message: 'Comic Added Successfully'})  
                     }
                 })
             }
@@ -65,9 +65,21 @@ class MyComicsController{
          
     } 
 
-    deleteFromMyComics(req, res) {
-        const { id } = req.params;
-        res.json({text: 'Comic whith id #' + id + ' deleted successfully'});
+    async deleteFromMyComics(req, res) {
+        await jwt.verify(req.token, CONFIG_JWT.TOKEN_SECRET, (err, authData) =>{
+            if(err){
+                res.status(403).json({message: 'Access Denied'})
+            }else{
+                let { id } = req.params; 
+                Comic.deleteOne({_id: id}, (err, comic) =>{
+                    if(err){
+                        res.status(500).json({message: 'Server Error'})
+                    }else{
+                        res.status(200).json({message: 'Comic Deleted Successfully'})
+                    }
+                })
+            }
+        })
     }
 
 }

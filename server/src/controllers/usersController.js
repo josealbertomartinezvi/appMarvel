@@ -14,19 +14,19 @@ class UsersController{
         }
         await User.findOne({email: userData.email}, (err, user) =>{
             if(err){
-                res.status(500).json('Server Error')
+                res.status(500).json({message: 'Server Error'})
             }else if(!user){
-                res.status(409).json('Something is wrong')
+                res.status(409).json({message: 'Something is Wrong'})
             }else{
                 let password = bcrypt.compareSync(userData.password, user.password) 
                 if(password){
                     const expiresIn = 24*60*60 // expires in 24 hours
                     const accessToken = 'Bearer ' + jwt.sign({user}, CONFIG_JWT.TOKEN_SECRET, {expiresIn: expiresIn})
                     
-                    res.json({ accessToken: accessToken, expiresIn: expiresIn})
+                    res.status(200).json({accessToken: accessToken, expiresIn: expiresIn})
                     
                 }else{
-                    res.status(409).json('Something is wrongs') 
+                    res.status(409).json({message: 'Something is Wrong'}) 
                 }
                 
             }
@@ -42,15 +42,31 @@ class UsersController{
             password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
         }
 
-        await User.create(newUser, (err, user) => {
-            if(err && err.code == 11000){
-                res.status(409).json('ID or Email alredy exists')
-            }else if(err){
-                res.status(500).json('Server Error')
-            }else{
-              res.json(user.name)  
+        await User.findOne({email: newUser.email}, (err, user) =>{
+            if(err){
+                res.status(500).json({message: 'Server Error'})
             }
-         })
+            if(user){
+                res.status(409).json({message: 'ID or Email already exists'})
+            }else{
+                User.findOne({idDocument: newUser.idDocument}, (err, user) =>{
+                    if(err){
+                        res.status(500).json({message: 'Server Error'})
+                    }
+                    if(user){
+                        res.status(409).json({message: 'ID or Email already exists'})
+                    }else{
+                        User.create(newUser, (err, user) => {
+                            if(err){
+                                res.status(500).json({message: 'Server Error'})
+                            }else{
+                              res.status(200).json(user.name)  
+                            }
+                        })
+                    }
+                })        
+            }
+        })
     }     
 
 }

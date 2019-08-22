@@ -12,7 +12,6 @@ class VerifyTokenMiddleware{
         }
 
         if(authorizationHeader !== 'undefined'){
-            //console.log(bearerHeader)
             // split at the space
             var bearer = authorizationHeader.split(' ')
             // get token from array
