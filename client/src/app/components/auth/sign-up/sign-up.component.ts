@@ -3,8 +3,8 @@ import { SignUp } from '../../../models/auth/SignUp';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
-
 import { SignUpService } from '../../../services/auth/signUp/sign-up.service';
+import { AppComponent } from '../../../app.component'
 
 
 @Component({
@@ -23,15 +23,16 @@ export class SignUpComponent implements OnInit {
     password: ''
   }    
 
-  constructor(private signUpService: SignUpService, private router: Router) { }
+  constructor(private signUpService: SignUpService, private router: Router, private appComponent: AppComponent) { }
 
   ngOnInit() {
-    this.loading = true;
+    //this.loading = true;
+    this.appComponent.showNav = false
   }
 
   signUp(){
     delete this.sign_Up.id;
-
+    this.loading = true;
     this.signUpService.signUp(this.sign_Up)
       .subscribe(
         res => {

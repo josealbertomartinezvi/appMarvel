@@ -7,22 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'Client';
-  mainNav: boolean = true
-  userNav: boolean = false
+  public showNav: boolean;
 
   constructor() { }
 
   ngOnInit() {
- 
-  }
 
-  changeNavigation(value: boolean){
-    if(value === false){
-      this.mainNav = true
-      this.userNav = false  
-    }else{
-      this.mainNav = false
-      this.userNav = true
-    }    
   }
 }

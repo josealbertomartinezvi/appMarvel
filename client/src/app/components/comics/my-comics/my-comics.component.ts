@@ -20,6 +20,7 @@ export class MyComicsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.appComponent.showNav = true
     this.getMyComics()
   }
 
@@ -27,13 +28,11 @@ export class MyComicsComponent implements OnInit {
     this.myComicsService.getMyComics().subscribe(
       res =>{
         this.loading = false;
-        this.appComponent.changeNavigation(true)
         this.data = res
       },
       err => {
         this.loading = false;
         alert(err.error.message)
-        this.appComponent.changeNavigation(false)
         this.router.navigate(['/'])
       }
     )

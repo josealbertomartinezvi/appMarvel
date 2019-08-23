@@ -21,6 +21,7 @@ export class MarvelComicsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.appComponent.showNav = true
     this.getComics();
   }
 
@@ -28,13 +29,11 @@ export class MarvelComicsComponent implements OnInit {
     this.marvelComicsService.getComics().subscribe(
       res =>{
         this.loading = false;
-        this.appComponent.changeNavigation(true)
         this.data = res
       },
       err => {
         this.loading = false;
         alert(err.error.message)
-        this.appComponent.changeNavigation(false)
         this.router.navigate(['/'])
       }
     )

@@ -5,6 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { SignInService } from '../../../services/auth/signIn/sign-in.service';
 
+import { AppComponent } from '../../../app.component'
+
 @Component({
   selector: 'app-sign-in',
   templateUrl: './sign-in.component.html',
@@ -19,13 +21,15 @@ export class SignInComponent implements OnInit {
     password: ''
   }   
 
-  constructor(private signInService: SignInService, private router: Router) { }
+  constructor(private signInService: SignInService, private router: Router, private appComponent: AppComponent) { }
 
   ngOnInit() {
-    this.loading = true;
+    //this.loading = true;
+    this.appComponent.showNav = false
   }
 
   signIn(){
+    this.loading = true;
     this.signInService.signIn(this.sign_In)
       .subscribe(
         res => {

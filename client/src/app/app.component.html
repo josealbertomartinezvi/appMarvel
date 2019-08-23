@@ -1,10 +1,7 @@
 <!--Navigation-->
-<div *ngIf="mainNav">
-        <app-auth-navigation></app-auth-navigation>
-</div>
-
-<div *ngIf="userNav">
-        <app-user-navigation></app-user-navigation>
+<div>
+     <app-auth-navigation *ngIf="!showNav"></app-auth-navigation>
+     <app-user-navigation *ngIf="showNav"></app-user-navigation>
 </div>
 
 <!-- Body -->

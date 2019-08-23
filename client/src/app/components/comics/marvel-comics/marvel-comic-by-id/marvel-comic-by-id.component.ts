@@ -21,6 +21,7 @@ export class MarvelComicByIdComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
+    this.appComponent.showNav = true
     let comicId = this.activatedRoute.snapshot.params.id
     this.getComicById(comicId)
    
@@ -31,13 +32,11 @@ export class MarvelComicByIdComponent implements OnInit {
     .subscribe(
       res => {
         this.loading = false;
-        this.appComponent.changeNavigation(true)
         this.comicData = res
       },
       err => {
         this.loading = false;
         alert(err.error.message)
-        this.appComponent.changeNavigation(false)
         this.router.navigate(['/'])
       }
     )
