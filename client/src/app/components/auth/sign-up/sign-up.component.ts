@@ -27,7 +27,8 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     //this.loading = true;
-    this.appComponent.showNav = false
+    this.appComponent.authNavBar = false
+    this.appComponent.userNavBar = true
   }
 
   signUp(){

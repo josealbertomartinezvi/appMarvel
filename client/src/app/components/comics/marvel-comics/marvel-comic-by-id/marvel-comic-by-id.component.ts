@@ -21,13 +21,14 @@ export class MarvelComicByIdComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.appComponent.showNav = true
+    this.appComponent.authNavBar = true
+    this.appComponent.userNavBar = false
     let comicId = this.activatedRoute.snapshot.params.id
     this.getComicById(comicId)
    
   }
 
-  getComicById(comicId){
+  getComicById(comicId: string){
     this.marvelComicsService.getComicById(comicId)
     .subscribe(
       res => {

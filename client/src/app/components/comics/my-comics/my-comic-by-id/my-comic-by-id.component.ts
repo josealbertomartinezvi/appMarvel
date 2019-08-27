@@ -21,7 +21,8 @@ export class MyComicByIdComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.appComponent.showNav = true
+    this.appComponent.authNavBar = true
+    this.appComponent.userNavBar = false
     let comicId = this.activatedRoute.snapshot.params.id
     this.getMyComicById(comicId)
 

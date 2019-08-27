@@ -20,7 +20,8 @@ export class MyComicsComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.appComponent.showNav = true
+    this.appComponent.authNavBar = true
+    this.appComponent.userNavBar = false
     this.getMyComics()
   }
 

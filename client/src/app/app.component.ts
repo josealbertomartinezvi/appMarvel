@@ -7,11 +7,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'Client';
-  public showNav: boolean;
+  private _authNavBar: boolean
+  private _userNavBar: boolean
 
   constructor() { }
 
-  ngOnInit() {
+  get authNavBar(): boolean {
+    return this._authNavBar
+  }
 
+  set authNavBar(authNavBar: boolean){
+    this._authNavBar = authNavBar
+  }
+
+  get userNavBar(): boolean {
+    return this._userNavBar
+  }
+
+  set userNavBar(userNavBar: boolean){
+    this._userNavBar = userNavBar
+  }
+
+  ngOnInit() {
+    
   }
 }

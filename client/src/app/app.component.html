@@ -1,7 +1,7 @@
 <!--Navigation-->
 <div>
-     <app-auth-navigation *ngIf="!showNav"></app-auth-navigation>
-     <app-user-navigation *ngIf="showNav"></app-user-navigation>
+     <app-auth-navigation [hidden]="authNavBar"></app-auth-navigation>
+     <app-user-navigation [hidden]="userNavBar"></app-user-navigation>
 </div>
 
 <!-- Body -->
