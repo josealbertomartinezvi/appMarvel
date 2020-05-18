@@ -13,3 +13,5 @@
 <h2>Data Base</h2>
 
 <p>Data base was generate with MongoDb version 4.0</p>
+
+El sistemas se encarga de consumir una Api externa "https://developer.marvel.com" donde se listan algunos personajes de marvel y los detalles de cada uno al igual de la posibilidad de agregarlos a un listado de favoritos del usuario que este registrado en ese momento
