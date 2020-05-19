@@ -15,3 +15,10 @@
 <p>Data base was generate with MongoDb version 4.0</p>
 
 El sistemas se encarga de consumir una Api externa "https://developer.marvel.com" donde se listan algunos personajes de marvel y los detalles de cada uno al igual de la posibilidad de agregarlos a un listado de favoritos del usuario que este registrado en ese momento
+
+# Instrucciones 
+
+  1. Dentro de las carpetas client y server ejecutar comando npm install para instalar las dependencias de nodeJs (importante tener instalado NodeJs)
+  3. Dentro de la carpeta client ejecutar comando desde la terminal "ng serve"
+  4. Dentro de la carpeta server ejecutar comando desde la terminal "node src/index.js"
+  5. Acceder desde el navegador a la ruta # http://localhost:4200/
