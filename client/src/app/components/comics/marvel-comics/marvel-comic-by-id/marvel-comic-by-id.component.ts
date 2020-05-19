@@ -15,7 +15,7 @@ export class MarvelComicByIdComponent implements OnInit {
 
   public loading = false;
 
-  private comicData: any = []
+  public comicData: any = [];
 
   constructor(private marvelComicsService: MarvelComicsService, private router: Router, private activatedRoute: ActivatedRoute, private appComponent: AppComponent) { }
 
